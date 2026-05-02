@@ -2,11 +2,18 @@ using UnityEngine;
 
 public class CollectItem : MonoBehaviour
 {
-    void OnTriggerEnter(Collider other)
+    public Transform player;
+    public float collectDistance = 2f;
+
+    void Update()
     {
-        if (other.CompareTag("MainCamera"))
+        if (player == null) return;
+
+        float distance = Vector3.Distance(transform.position, player.position);
+
+        if (distance < collectDistance)
         {
-            Debug.Log("Crystal Collected!");
+            GameManager.instance.AddScore();
             gameObject.SetActive(false);
         }
     }
